@@ -301,6 +301,7 @@ def main(args, config):
         for epoch in range(0, max_epoch):
             if args.distributed:
                 train_loader.sampler.set_epoch(epoch)
+            # print('Train loader', type(next(iter(train_loader))) )
             train_stats = train(model, train_loader, optimizer, tokenizer, epoch, device, lr_scheduler, config)
 
             score_val_i2t, score_val_t2i, = evaluation(model_without_ddp, val_loader, tokenizer, device, config)

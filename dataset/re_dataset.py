@@ -36,7 +36,11 @@ class re_train_dataset(Dataset):
 
         ann = self.ann[index]
 
-        image_path = os.path.join(self.image_root, ann['image'])
+        if 'ms-coco' in self.image_root:
+            image_name = os.path.basename(ann['image'])
+        else:
+            image_name = ann['image']
+        image_path = os.path.join(self.image_root, image_name)
         image = Image.open(image_path).convert('RGB')
         image = self.transform(image)
 
@@ -72,7 +76,14 @@ class re_eval_dataset(Dataset):
 
     def __getitem__(self, index):
 
-        image_path = os.path.join(self.image_root, self.ann[index]['image'])
+        ann = self.ann[index]
+
+        if 'ms-coco' in self.image_root:
+            image_name = os.path.basename(ann['image'])
+        else:
+            image_name = ann['image']
+
+        image_path = os.path.join(self.image_root, image_name)
         image = Image.open(image_path).convert('RGB')
         image = self.transform(image)
 

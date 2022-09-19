@@ -238,8 +238,14 @@ def run(args):
         run_retrieval(args)
 
     elif args.task == 'itr_flickr':
-        assert os.path.exists("images/flickr30k-images")
+        # raise NotImplementedError
+        # assert os.path.exists("images/flickr30k-images")
         args.config = 'configs/Retrieval_flickr.yaml'
+        run_retrieval(args)
+
+    elif args.task == 'itr_cub':
+        # assert os.path.exists()
+        args.config = 'configs/retrieval_cub.yaml'
         run_retrieval(args)
 
     elif args.task == 'vqa':

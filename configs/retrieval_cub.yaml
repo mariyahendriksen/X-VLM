@@ -1,7 +1,7 @@
-train_file:  ['/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/coco_train.json']
-val_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/coco_val.json'
-test_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/coco_test.json'
-image_root: '/ivi/ilps/personal/mbiriuk/ms-coco/images'
+train_file:  ['/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_train.json']
+val_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_val.json'
+test_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_test.json'
+image_root: '/ivi/ilps/personal/mbiriuk/CUB_200_2011/images'
 
 
 ## Vision Encoder
