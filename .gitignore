@@ -3,6 +3,7 @@ jobs/
 logs/
 deliverables/
 data/
+pretrained_models/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
