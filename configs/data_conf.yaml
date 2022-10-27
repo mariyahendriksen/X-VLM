@@ -105,3 +105,4 @@ f30k:
     # version of clip we used to get image and caption representations
     # options: clip-ViT-B-32, clip-ViT-B-16, clip-ViT-L-14
     clip_version: clip-ViT-L-14
+test: {'a': 10}
