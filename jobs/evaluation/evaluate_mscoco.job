@@ -1,0 +1,12 @@
+#!/bin/sh
+#SBATCH -p gpu
+#SBATCH --gres=gpu:4
+#SBATCH --mem=250gb
+#SBATCH --exclude=ilps-cn108
+#SBATCH --time=48:00:00
+#SBATCH -o /home/mbiriuk/X-VLM/logs/zh/eval-coco.out
+
+python3 run.py --task "itr_coco" --dist "gpu3" --evaluate \
+--config 'configs/retrieval_eval_coco.yaml' \
+--output_dir "output/zh/coco" \
+--checkpoint "/home/mbiriuk/X-VLM/output/zh/coco/checkpoint_best.pth"

@@ -1,7 +1,7 @@
-train_file:  ['/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_small_train.json']
-val_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_small_val.json'
-test_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_small_test.json'
-image_root: '/ivi/ilps/personal/mbiriuk/CUB_200_2011/images'
+train_file:  ['/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/fashion200k_small_train.json']
+val_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/fashion200k_small_val.json'
+test_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/fashion200k_small_test.json'
+image_root: '/ivi/ilps/personal/mbiriuk/fashion200k'
 
 
 ## Vision Encoder

@@ -3,6 +3,7 @@
 # Copyright (c) 2022, ByteDance Inc.
 # All rights reserved.
 
+from email.policy import default
 import os
 import sys
 import time
@@ -233,19 +234,31 @@ def run(args):
         run_pretrain(args)
 
     elif args.task == 'itr_coco':
-        assert os.path.exists("images/coco")
-        args.config = 'configs/Retrieval_coco.yaml'
+        # assert os.path.exists("images/coco")
+        if args.config == '':
+            args.config = 'configs/retrieval_coco.yaml'
         run_retrieval(args)
 
     elif args.task == 'itr_flickr':
-        # raise NotImplementedError
         # assert os.path.exists("images/flickr30k-images")
-        args.config = 'configs/Retrieval_flickr.yaml'
+        if args.config == '':
+            args.config = 'configs/retrieval_flickr.yaml'
         run_retrieval(args)
 
     elif args.task == 'itr_cub':
         # assert os.path.exists()
-        args.config = 'configs/retrieval_cub.yaml'
+        if args.config == '':
+            args.config = 'configs/retrieval_cub.yaml'
+        run_retrieval(args)
+    
+    elif args.task == 'itr_abo':
+        if args.config == '':
+            args.config = 'configs/retrieval_abo.yaml'
+        run_retrieval(args)
+
+    elif args.task == 'itr_fashion200k':
+        if args.config == '':
+            args.config = 'configs/retrieval_fashion200k.yaml'
         run_retrieval(args)
 
     elif args.task == 'vqa':

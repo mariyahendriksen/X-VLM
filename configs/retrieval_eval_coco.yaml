@@ -1,7 +1,7 @@
-train_file:  ['/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_small_train.json']
-val_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_small_val.json'
-test_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/cub_small_test.json'
-image_root: '/ivi/ilps/personal/mbiriuk/CUB_200_2011/images'
+train_file:  ['/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/coco_train.json']
+val_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/coco_val.json'
+test_file: '/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune/coco_test.json'
+image_root: '/ivi/ilps/personal/mbiriuk/ms-coco/images'
 
 
 ## Vision Encoder
@@ -24,13 +24,13 @@ text_encoder: 'bert-base-uncased'  # ['data/bert-base-uncased', 'data/roberta-ba
 
 
 ## Training
-batch_size_train: 2
-batch_size_test: 2
-batch_size_test_text: 32
+batch_size_train: 6
+batch_size_test: 6
+batch_size_test_text: 6
 max_tokens: 40
 embed_dim: 256
 temp: 0.07
-k_test: 2
+k_test: 4
 
 
 ## Other Settings

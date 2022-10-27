@@ -1,0 +1,12 @@
+#!/bin/sh
+#SBATCH -p gpu
+#SBATCH --gres=gpu:4
+#SBATCH --mem=250gb
+#SBATCH --time=48:00:00
+#SBATCH --exclude=ilps-cn108
+#SBATCH -o /home/mbiriuk/X-VLM/logs/zh/eval-fashion200k-small.out
+
+python3 run.py --task "itr_fashion200k" --dist "gpu1" --evaluate \
+--config 'configs/retrieval_eval_fashion200k.yaml' \
+--output_dir "output/zh/fashion200k_small" \
+--checkpoint "/home/mbiriuk/X-VLM/output/zh/fashion200k_small/checkpoint_best.pth" 

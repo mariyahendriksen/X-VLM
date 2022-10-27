@@ -36,7 +36,7 @@ class re_train_dataset(Dataset):
 
         ann = self.ann[index]
 
-        if 'ms-coco' in self.image_root:
+        if 'ms-coco' in self.image_root or 'flickr30k' in self.image_root:
             image_name = os.path.basename(ann['image'])
         else:
             image_name = ann['image']
@@ -80,12 +80,13 @@ class re_eval_dataset(Dataset):
 
         ann = self.ann[index]
 
-        if 'ms-coco' in self.image_root:
+        if 'ms-coco' in self.image_root or 'flickr30k' in self.image_root:
             image_name = os.path.basename(ann['image'])
         else:
             image_name = ann['image']
 
         image_path = os.path.join(self.image_root, image_name)
+        # print('Image path exists?', os.path.exists(image_path))
         image = Image.open(image_path).convert('RGB')
         image = self.transform(image)
 

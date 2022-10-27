@@ -2,41 +2,16 @@ import argparse
 import yaml
 import pandas as pd
 import os
-from utils import save_json
+from utils import save_json, csv_to_train_json_list, csv_to_test_dev_json_list
 
-import sys
-sys.path.append('/Users/mhendriksen/Desktop/repositories/X-VLM')
-
-def csv_to_train_json_list(dataf, image_file_column, caption_column):
-    dicts_list = []
-    for idx, row in dataf.iterrows():
-        tmp_dict = {
-        'caption': row[caption_column],
-        'image': row[image_file_column],
-        'image_id': idx
-        }
-        dicts_list.append(tmp_dict)
-    assert len(dicts_list) == len(dataf)
-    print(f'Got list with {len(dicts_list)} dicts')
-    return dicts_list
-
-def csv_to_test_dev_json_list(dataf, image_file_column, caption_column):
-    dicts_list = []
-    for _, row in dataf.iterrows():
-        tmp_dict = {
-        'image': row[image_file_column],
-        'caption': [row[caption_column]],
-        }
-        dicts_list.append(tmp_dict)
-    assert len(dicts_list) == len(dataf)
-    print(f'Got list with {len(dicts_list)} dicts')
-    return dicts_list 
 
 def main(args):
     dataset = args.dataset
     config_file = args.config_file
     dataset_split = args.dataset_split
-    print(f'Working with {dataset} config file from {config_file} dataset_split {dataset_split}')
+    xvlm_root = args.xvlm_root
+    is_small = args.is_small
+    print(args)
 
     # load config file
     with open(config_file) as file:
@@ -45,10 +20,15 @@ def main(args):
     config = config_full[dataset]
     print('Loaded configuration: ', config)
 
+    if is_small:
+        csv_file = config['csv_file_small']
+    else:
+        csv_file = config['csv_file']
+
     # load df
     df = pd.read_csv(
-        # filepath_or_buffer=os.path.join(config['dataset_root'], config['csv_file']),
-        filepath_or_buffer = '/Users/mhendriksen/Desktop/repositories/datasets/CUB_200_2011/cub_1_cap_per_img.csv',
+        filepath_or_buffer=os.path.join(config['dataset_root'], csv_file),
+        # filepath_or_buffer = '/Users/mhendriksen/Desktop/repositories/datasets/CUB_200_2011/cub_1_cap_per_img.csv',
         dtype=config['columns_dtypes'],
         index_col=0
         )
@@ -59,7 +39,7 @@ def main(args):
     print('Final df shape: ', df_subset.shape)
 
     # print("config['content_type']: ", config['content_type'])
-    print("config['content_type']['image']", str(config['content_type']['image']))
+    # print("config['content_type']['image']", str(config['content_type']['image']))
     
     if dataset_split == 'train':
         json_list = csv_to_train_json_list(
@@ -69,9 +49,17 @@ def main(args):
         json_list = csv_to_test_dev_json_list(
             df_subset, image_file_column=config['content_type']['image'], caption_column=config['content_type']['text']
         )
-    json_file = f'{dataset_split}_{dataset}.json'
-    json_file_path = os.path.join(config['dataset_root'], json_file)
+    
+    if dataset_split == 'dev':
+        dataset_split = 'val'
+    
+    if is_small:
+        json_file = f'{dataset}_small_{dataset_split}.json'
+    else:
+        json_file = f'{dataset}_{dataset_split}.json'
+    json_file_path = os.path.join(xvlm_root, json_file)
     save_json(json_list, json_file_path)
+    
     print('Done!')
     
 
@@ -88,6 +76,9 @@ if __name__ == '__main__':
                     default='train',
                     choices=['train', 'test', 'dev'],
                     help='train|test|dev dataset split')
-
+    parser.add_argument('--is_small', type=bool, default=False,
+                    help='Is it a small ds? Only for abo and fashion200k')
+    parser.add_argument('--xvlm_root', type=str, default='/ivi/ilps/personal/mbiriuk/repro/X-VLM/finetune',
+                    help='Xvlm fine tune root')
     args = parser.parse_args()
     main(args)

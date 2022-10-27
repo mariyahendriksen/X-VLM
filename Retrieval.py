@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 import math
+import pickle
 
 import ruamel.yaml as yaml
 import numpy as np
@@ -178,9 +179,16 @@ def itm_eval(scores_i2t, scores_t2i, txt2img, img2txt):
         ranks[index] = rank
 
     # Compute metrics
+    # image-to-text
     tr1 = 100.0 * len(np.where(ranks < 1)[0]) / len(ranks)
     tr5 = 100.0 * len(np.where(ranks < 5)[0]) / len(ranks)
     tr10 = 100.0 * len(np.where(ranks < 10)[0]) / len(ranks)
+
+    # save ranks
+    path = os.path.join(args.output_dir, 'eval_ranks_i2t.pkl')
+    with open(path, 'wb+') as f:
+        pickle.dump(ranks, f)
+    print('Saved ranks to ', path)
 
     # Text->Images
     ranks = np.zeros(scores_t2i.shape[0])
@@ -190,6 +198,7 @@ def itm_eval(scores_i2t, scores_t2i, txt2img, img2txt):
         ranks[index] = np.where(inds == txt2img[index])[0][0]
 
     # Compute metrics
+    # text-to-image
     ir1 = 100.0 * len(np.where(ranks < 1)[0]) / len(ranks)
     ir5 = 100.0 * len(np.where(ranks < 5)[0]) / len(ranks)
     ir10 = 100.0 * len(np.where(ranks < 10)[0]) / len(ranks)
@@ -197,6 +206,13 @@ def itm_eval(scores_i2t, scores_t2i, txt2img, img2txt):
     tr_mean = (tr1 + tr5 + tr10) / 3
     ir_mean = (ir1 + ir5 + ir10) / 3
     r_mean = (tr_mean + ir_mean) / 2
+
+    # save ranks
+    path = os.path.join(args.output_dir, 'eval_ranks_t2i.pkl')
+    with open(path, 'wb+') as f:
+        pickle.dump(ranks, f)
+    print('Saved ranks to ', path)
+
 
     eval_result = {'txt_r1': tr1,
                    'txt_r5': tr5,
