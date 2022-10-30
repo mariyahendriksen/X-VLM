@@ -1,6 +1,5 @@
 .DS_Store
 logs/
-deliverables/
 data/
 output/
 pretrained_models/

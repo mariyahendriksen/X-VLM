@@ -8,6 +8,13 @@ unzip TBA
 ```
 After unzipping the folder, put it in the CLIP root folder.
 
+Install the dependancies:
+
+```bash
+pip install -r requirements.txt
+```
+
+
 1. Evaluate model wrt to the dataset type.
 
 ```bash
