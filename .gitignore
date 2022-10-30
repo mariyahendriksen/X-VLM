@@ -1,8 +1,20 @@
 .DS_Store
-logs/
-data/
-output/
-pretrained_models/
+
+# CLIP-specific files
+CLIP/jobs/
+CLIP/logs/
+CLIP/deliverables/
+CLIP/data/
+CLIP/output/
+CLIP/pretrained_models/
+
+# X-VLM-speicific files 
+X-VLM/data
+data
+dataset
+notebooks
+pretrained_models
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
