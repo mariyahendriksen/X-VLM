@@ -227,6 +227,9 @@ def run_coco_captioning(args, load_capt_pretrain=False, scst=False):
 
 def run(args):
     if args.task not in ['pretrain_4m_base']:
+        import os
+        print(os.getcwd())
+        print(args.checkpoint)
         assert hexists(args.checkpoint) or hexists(args.load_ckpt_from)
 
     if args.task == 'pretrain_4m_base':
