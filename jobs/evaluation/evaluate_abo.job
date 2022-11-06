@@ -1,18 +1,16 @@
 #!/bin/sh
 #SBATCH -p gpu
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:1
 #SBATCH --mem=250gb
 #SBATCH --time=48:00:00
 #SBATCH --exclude=ilps-cn108
-#SBATCH -o /home/mbiriuk/X-VLM/logs/zh/eval-abo-small.out
+#SBATCH -o /home/mbiriuk/X-VLM/logs/evaluation/eval-abo.out
 
 echo 'Working with ABO!'
-
-echo 'Start eval!'
-python3 run.py --task "itr_abo" --dist "gpu1" --evaluate \
---config 'configs/retrieval_eval_abo.yaml' \
---output_dir "output/zh/abo_small" \
---checkpoint "/home/mbiriuk/X-VLM/output/zh/abo_small/checkpoint_best.pth"
-echo 'Done with eval!'
-
-echo 'End of script!'
+echo 'Start the evaluation!'
+python3 X-VLM/run.py --task "itr_abo" \
+--dist "gpu0" --evaluate \
+--output_dir "X-VLM/data/models/abo/" \
+--checkpoint "X-VLM/data/models/abo/checkpoint_best.pth"
+echo 'Done with the evaluation!'
+echo 'End of the script!'

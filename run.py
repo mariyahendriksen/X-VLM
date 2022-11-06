@@ -149,7 +149,7 @@ def run_retrieval(args):
     dist_launch = get_dist_launch(args)
 
     os.system(f"{dist_launch} "
-              f"--use_env Retrieval.py --config {args.config} "
+              f"--use_env X-VLM/Retrieval.py --config {args.config} "
               f"--output_dir {args.output_dir} --bs {args.bs} --checkpoint {args.checkpoint} {'--evaluate' if args.evaluate else ''}")
 
 
@@ -227,41 +227,38 @@ def run_coco_captioning(args, load_capt_pretrain=False, scst=False):
 
 def run(args):
     if args.task not in ['pretrain_4m_base']:
-        import os
-        print(os.getcwd())
-        print(args.checkpoint)
         assert hexists(args.checkpoint) or hexists(args.load_ckpt_from)
 
     if args.task == 'pretrain_4m_base':
-        args.config = 'configs/Pretrain_XVLM_base_4m.yaml'
+        args.config = 'X-VLM/configs/Pretrain_XVLM_base_4m.yaml'
         run_pretrain(args)
 
     elif args.task == 'itr_coco':
         # assert os.path.exists("images/coco")
         if args.config == '':
-            args.config = 'configs/retrieval_coco.yaml'
+            args.config = 'X-VLM/configs/retrieval_coco.yaml'
         run_retrieval(args)
 
     elif args.task == 'itr_flickr':
         # assert os.path.exists("images/flickr30k-images")
         if args.config == '':
-            args.config = 'configs/retrieval_flickr.yaml'
+            args.config = 'X-VLM/configs/retrieval_flickr.yaml'
         run_retrieval(args)
 
     elif args.task == 'itr_cub':
         # assert os.path.exists()
         if args.config == '':
-            args.config = 'configs/retrieval_cub.yaml'
+            args.config = 'X-VLM/configs/retrieval_cub.yaml'
         run_retrieval(args)
     
     elif args.task == 'itr_abo':
         if args.config == '':
-            args.config = 'configs/retrieval_abo.yaml'
+            args.config = 'X-VLM/configs/retrieval_abo.yaml'
         run_retrieval(args)
 
     elif args.task == 'itr_fashion200k':
         if args.config == '':
-            args.config = 'configs/retrieval_fashion200k.yaml'
+            args.config = 'X-VLM/configs/retrieval_fashion200k.yaml'
         run_retrieval(args)
 
     elif args.task == 'vqa':
